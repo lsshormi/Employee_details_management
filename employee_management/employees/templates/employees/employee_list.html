@@ -1,0 +1,76 @@
+{% extends 'employees/base.html' %}
+
+{% block content %}
+{% comment %} <h2>Employees</h2> {% endcomment %}
+<div class="row mb-3">
+    <div class="col-md-12">
+        <form method="get" class="form-inline">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control text-center" placeholder="Search by name" value="{{ request.GET.search }}">
+                <input type="date" name="date_of_birth" class="form-control text-center" placeholder="Date of Birth" value="{{ request.GET.date_of_birth }}">
+                <input type="text" name="email" class="form-control text-center" placeholder="Email" value="{{ request.GET.email }}">
+                <input type="text" name="mobile" class="form-control text-center" placeholder="Mobile" value="{{ request.GET.mobile }}">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+    {% comment %} <div class="col-md-2 text-end">
+        <a href="{% url 'employee_add' %}" class="btn btn-success">Add Employee</a>
+    </div>  {% endcomment %}
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Photo</th>
+            <th class="sortable" data-sort="first_name">Full Name <i class="fas fa-sort"></i></th>
+            <th class="sortable" data-sort="email">Email <i class="fas fa-sort"></i></th>
+            <th class="sortable" data-sort="mobile">Mobile <i class="fas fa-sort"></i></th>
+            <th class="sortable" data-sort="date_of_birth">Date of Birth <i class="fas fa-sort"></i></th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employees %}
+        <tr>
+            <td><img src="{{ employee.photo.url }}" alt="{{ employee.full_name }}" class="employee-photo"></td>
+            <td>{{ employee.full_name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.mobile }}</td>
+            <td>{{ employee.date_of_birth|date:"d/m/Y" }}</td>
+            <td>
+                <a href="{% url 'employee_edit' employee.id %}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'employee_delete' employee.id %}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">No employees found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% include 'employees/pagination.html' %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('.sortable').click(function() {
+            var sort_by = $(this).data('sort');
+            var current_sort_order = '{{ sort_order }}';
+            var new_sort_order = current_sort_order === 'asc' ? 'desc' : 'asc';
+            window.location.href = '?{% if request.GET.search %}search={{ request.GET.search }}&{% endif %}sort_by=' + sort_by + '&sort_order=' + new_sort_order;
+        });
+
+        $('.btn-danger').click(function(e) {
+            e.preventDefault();
+            var deleteUrl = $(this).attr('href');
+            if (confirm('Are you sure you want to delete this employee?')) {
+                window.location.href = deleteUrl;
+            }
+        });
+    });
+</script>
+{% endblock %}
