@@ -74,7 +74,7 @@ employee_management/
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/employee-management.git
+   git clone https://github.com/lsshormi/Employee_details_management.git
    cd employee_management
    ```
 
