@@ -89,7 +89,7 @@ employee_management/
    pip install -r requirements.txt
    ```
 
-4. Set up the PostgreSQL database and update the `DATABASES` configuration in `settings.py`.
+4. Set up the database and update the `DATABASES` configuration in `settings.py`.
 
 5. Run migrations:
    ```
