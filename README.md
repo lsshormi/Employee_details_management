@@ -27,7 +27,7 @@ This project is a Django-based Employee Management System that allows users to m
 ## Technology Stack
 
 - Backend: Django 5.0.2
-- Database: PostgreSQL
+- Database: SQLite
 - Frontend: HTML, CSS, JavaScript, Bootstrap
 - Additional Libraries:
   - Pillow 10.2.0 for image processing
