@@ -117,6 +117,9 @@ employee_management/
 5. Use the search bar to find specific employees.
 6. Sort the list by clicking on column headers.
 
+## UI
+![Screenshot](https://github.com/user-attachments/assets/d46d237c-210a-49bb-9c03-26825b46469b)
+
 ## Future Improvements
 
 - Implement user authentication for the main application
